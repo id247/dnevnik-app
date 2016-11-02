@@ -1,21 +1,44 @@
 @charset "UTF-8";
 
-// @font-face {
-//     font-family: 'font';
-//     src: url('../fonts/fonr.woff') format('woff');
-//     font-weight: normal;
-//     font-style: normal;
-// }
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/Open-Sans-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/Open-Sans.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/Open-Sans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'Museo';
+    src: url('../fonts/MuseoCyrl-500.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-$mainFontFamily: Helvetica, sans-serif;
+$sans: 'Open Sans';
+$museo: 'Museo';
+$mainFontFamily: $sans, Helvetica, sans-serif;
 
 //
 //colors
 //
 
+$orange: #ff8a01;
+$blue: #0273b2;
+$light-blue: #41b3e9;
 
-$text: #1c1c1c;
+$text: #58595b;
 
 //
 //medias
