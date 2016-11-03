@@ -27,6 +27,7 @@ export default function (){
 				$invision.hide();
 				return;
 			}
+			$invision.show();
 
 			const $tabItems = $invision.find('.js-invision-tab');
 			const $frame = $invision.find('.js-invision-frame');
@@ -74,7 +75,9 @@ export default function (){
 
 		function slider(){
 			const $gallery = $('#gallery');
-			const $galleryList = $gallery.find('.js-gallery-list');
+			const $galleryLists = $gallery.find('.js-gallery-list');
+			const $galleryBoxes = $gallery.find('.js-gallery-box');
+			const $galleryBoxItems = $gallery.find('.js-gallery-box');
 			const $galleryImages = $gallery.find('.js-gallery-image');
 			const $tabItems = $gallery.find('.js-gallery-tab');
 			const $loader = $gallery.find('.js-gallery-loader');
@@ -88,27 +91,44 @@ export default function (){
 				return;
 			}
 
+			$gallery.show();
+
 			function loading(){
+				$galleryBoxes.css('height', '300px');
 				$tabItems.attr('disabled', true);
-				$galleryList.css('visibility', 'hidden');	
+				$galleryLists.css('visibility', 'hidden');	
 				$loader.show();
 			}
 
 			function loaded(){
+				$galleryBoxes.css('height', '');
 				$tabItems.attr('disabled', false);
-				$galleryList.css('visibility', 'visible');	
+				$galleryLists.css('visibility', 'visible');	
 				$loader.hide();
 			}
 
 			function init(){
 
+				let loadedSliderCount = 0;
+
 				loading();
 
-				sliderId = $galleryList.bxSlider({
-					pager: false,
-					infiniteLoop: false,
-					adaptiveHeight: true,
-					onSliderLoad: loaded,
+				$galleryLists.each(function(){
+
+					$(this).bxSlider({
+						pager: false,
+						infiniteLoop: false,
+						adaptiveHeight: true,
+						onSliderLoad: () => {
+							loadedSliderCount++;
+
+							if (loadedSliderCount === $galleryLists.length){
+								$galleryBoxItems.not(':first').hide();
+								loaded();
+							}
+						},
+					});
+
 				});
 
 			}
@@ -118,13 +138,20 @@ export default function (){
 			$tabItems.on('change', function(){
 				const $this = $(this);
 				const os = $this.val();
+
+				$galleryBoxItems
+				.hide()
+				.filter('[data-os="' + os + '"]')
+				.show();
+
+				console.log($galleryBoxItems.filter('[data-os="' + os + '"]'));
 							
-				$galleryImages.each(function(){
-					const $this = $(this);
-					const oldSrc = $this.attr('src');
-					const newSrc = oldSrc.replace(/(android|ios)/, os);
-					$this.attr('src', newSrc);
-				});			
+				// $galleryImages.each(function(){
+				// 	const $this = $(this);
+				// 	const oldSrc = $this.attr('src');
+				// 	const newSrc = oldSrc.replace(/(android|ios)/, os);
+				// 	$this.attr('src', newSrc);
+				// });			
 			});
 		}
 

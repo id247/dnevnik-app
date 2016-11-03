@@ -172,7 +172,7 @@
 							
 							<label class="tabs__radio tab-radio">
 
-								<input type="radio" name="gallery" value="ios" class="tab-radio__input js-gallery-tab" >
+								<input type="radio" name="gallery" value="ios" class="tab-radio__input js-gallery-tab" checked>
 								
 								<span class="tab-radio__text">
 									iOS
@@ -186,7 +186,7 @@
 							
 							<label class="tabs__radio tab-radio">
 
-								<input type="radio" name="gallery" value="android" class="tab-radio__input js-gallery-tab" checked>
+								<input type="radio" name="gallery" value="android" class="tab-radio__input js-gallery-tab" >
 								
 								<span class="tab-radio__text">
 									Android
@@ -202,23 +202,47 @@
 
 			</div><!-- /.gallery__tabs -->
 
-			<div class="gallery__box">
-				
-				<ul class="gallery__list js-gallery-list">
+			<div class="gallery__boxes js-gallery-boxes">
+			
+				<div class="gallery__box js-gallery-box" data-os="ios">
 					
-					<li class="gallery__item">
+					<ul class="gallery__list js-gallery-list">
 						
-						<img src="assets/images/gallery/android/1.png" class="gallery__image js-gallery-image" alt="image">
+						<li class="gallery__item">
+							
+							<img src="assets/images/gallery/ios/1.png" class="gallery__image js-gallery-image" alt="image">
+							
+						</li> <!-- /.gallery__item -->
 						
-					</li> <!-- /.gallery__item -->
+						<li class="gallery__item">
+							
+							<img src="assets/images/gallery/ios/2.png" class="gallery__image js-gallery-image" alt="image">
+							
+						</li> <!-- /.gallery__item -->
 					
-					<li class="gallery__item">
+					</ul> <!-- /.gallery__list -->
+
+				</div><!-- /.gallery__box -->
+
+				<div class="gallery__box js-gallery-box" data-os="android">
+					
+					<ul class="gallery__list js-gallery-list">
 						
-						<img src="assets/images/gallery/android/2.png" class="gallery__image js-gallery-image" alt="image">
+						<li class="gallery__item">
+							
+							<img src="assets/images/gallery/android/1.png" class="gallery__image js-gallery-image" alt="image">
+							
+						</li> <!-- /.gallery__item -->
 						
-					</li> <!-- /.gallery__item -->
-				
-				</ul> <!-- /.gallery__list -->
+						<li class="gallery__item">
+							
+							<img src="assets/images/gallery/android/2.png" class="gallery__image js-gallery-image" alt="image">
+							
+						</li> <!-- /.gallery__item -->
+					
+					</ul> <!-- /.gallery__list -->
+
+				</div><!-- /.gallery__box -->	
 
 				<div class="gallery__loader loader js-gallery-loader">
 					
@@ -236,7 +260,7 @@
 
 				</div><!-- /.invision__loader -->
 
-			</div><!-- /.gallery__box -->			
+			</div><!-- /.gallery__boxex -->			
 
 
 		</div><!-- /.visual__gallery -->
