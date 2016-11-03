@@ -62,7 +62,10 @@
 
 .home{
 	background: #efefef;
-	padding-bottom: 0;
+	padding-bottom: 80px;
+	position: relative;
+	min-height: 550px;
+	max-height: 100vh;
 
 	&__title{
 		margin: 0 0 5px;
@@ -74,6 +77,14 @@
 
 	&__mobiles{
 		
+	}
+
+	&__steps{
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
 	}
 }
 
@@ -91,7 +102,11 @@
 	}
 
 	&__image{
-		vertical-align: top;		
+		vertical-align: top;	
+
+		@media (max-height: 700px){
+			width: 300px;
+		}	
 	}
 
 	&__market{
@@ -166,12 +181,13 @@
 		position: absolute;
 		top: 100%;
 		left: 50%;
-		margin-left: -45px;
+		z-index: 500;
+		margin-left: -62px;
 		margin-top: 10px;
-		width: 90px;
+		width: 124px;
 		text-align: center;
 		background: #fff;
-
+		box-shadow: 0 5px 15px rgba(0,0,0,.2);
 
 		opacity: 0;
 		visibility: hidden;
@@ -211,6 +227,7 @@
 	background: $light-blue;
 	background: linear-gradient(to right, $light-blue 0%, #5dbdec 50%, $light-blue 100%);
 	color: #fff;
+	padding: 25px 0 25px;
 
 	&__list{
 		text-align: center;
@@ -222,7 +239,7 @@
 		display: inline-block;
 		vertical-align: top;
 		margin: 0 25px 30px;
-		max-width: 300px;
+		max-width: 320px;
 		padding: 9px 0 0 80px;
 		text-align: left;
 		counter-increment: steps; 
@@ -251,10 +268,10 @@
 }
 
 /* ==========================================================================
- * invision
+ * visual
  * ========================================================================== */
 
-.invision{
+.visual{
 	background: $light-blue;
 	color: #fff;
 	position: relative;
@@ -282,6 +299,13 @@
 	&__wrap{
 		position: relative;
 	}
+}
+
+/* ==========================================================================
+ * invision
+ * ========================================================================== */
+
+.invision{
 
 	&__tabs{
 		margin: 0 0 20px;
@@ -289,14 +313,107 @@
 
 	&__frame-placeholder{
 		text-align: center;
+		position: relative;
+		min-height: 800px;
 	}
 
 	&__frame{
 		margin: auto;
+
+		&[data-os="ios"]{
+			width: 400px;
+			height: 800px;
+		}
+
+		&[data-os="android"]{
+			width: 442px;
+			height: 820px;
+		}
+	}
+
+	&__loader{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		width: 50px;
+		height: 50px;
+		display: block;
+
+		animation: spin .6s infinite linear;
 	}
 }
 
-.invision-tabs{
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+/* ==========================================================================
+ * gallery
+ * ========================================================================== */
+
+.gallery{
+
+	&__tabs{
+		margin: 0 0 20px;
+	}
+
+	&__box{
+		max-width: 360px;
+		margin: auto;
+		
+		position: relative;
+		
+		.bx-prev,
+		.bx-next{
+			position: absolute;
+			top: 50%;
+			margin-top: -30px;
+			text-indent: -9999px;
+			opacity: .4;
+			
+			transition: opacity .2s;
+
+			&:hover{
+				opacity: .6;
+			}
+		}
+
+		.bx-prev{
+			left: -100px;
+			@include sprite($prev);
+		}
+
+		.bx-next{
+			right: -100px;
+			@include sprite($next);
+		}
+	}
+
+	&__list{
+		
+	}
+
+	&__item{
+		
+	}
+
+	&__image{
+		width: 100%;
+		height: auto;
+	}
+
+}
+
+/* ==========================================================================
+ * tabs
+ * ========================================================================== */
+
+
+.tabs{
 	text-align: center;
 
 	&__box{
@@ -318,14 +435,18 @@
 	}
 }
 
-.invision-radio{
+.tab-radio{
 	position: relative;
 
 	&__input{
 		position: absolute;
 		left: -9999px;
 
-		&:checked + .invision-radio__text{
+		&:disabled + .tab-radio__text{
+			cursor: default;
+		}
+		
+		&:checked + .tab-radio__text{
 			background: #717171;
 			color: #fff;
 			cursor: default;

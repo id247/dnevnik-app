@@ -1,171 +1,116 @@
 'use strict';
 
-export default (function (window, document, $){
-	console.log('run');
+export default function (){
+	
+	(function (window, document, $){
+	
+		console.log('run');
 
-	var maxHeight = 650;
-	var maxWidth = 1020;
-
-	var isMobile = (function() { 
-		if( navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/webOS/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)
-		){
-			return true;
-		} else {
-			return false;
-		}
-	})();
-
-	function scrollMeTo(){
-
-		
-		const $header = $('#header');
-		
-		$('.js-goto').on('click', function(e){
-			const paddingTop = $(window).width() > maxWidth ? $header.outerHeight() : 0;
-			const $target = $(this.href.replace( /^.*\#/, '#' ) );
-			
-			if ($target.length === 1) {
-				e.preventDefault();
-
-				$('body,html').animate({ 
-					scrollTop: $target.offset().top - paddingTop,
-					easing: 'ease-in'
-				}, 500);
-			};
-		});
-
-	};
-
-	function header(){
-		const $header = $('header');
-
-
-		function fix(){
-			const scrollTop = $(window).scrollTop();
-			const showPosition = 200;
-
-			if ( scrollTop > 0 && scrollTop <= showPosition ){
-				$header.addClass('header--hidden');
-				$header.removeClass('header--scrolled');
-			}else if ( scrollTop > showPosition ){
-				$header.addClass('header--scrolled');
-				$header.removeClass('header--hidden');
-			}else{
-				$header.removeClass('header--scrolled');
-				$header.removeClass('header--hidden');
+		const isMobile = (function() { 
+			if( navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i)
+			){
+				return true;
 			}
-		}
-		fix();
+			return false;
+		})();
 
-		$(document).on('scroll', fix);
-	}
+		console.log('isMobile', isMobile);
 
+		function invision(){
+			const $invision = $('#invision');
 
-	function menu(){
-		var $menuHrefs = $('.menu__href');
-		var $sections = $('.section');
+			if (isMobile){
+				$invision.hide();
+				return;
+			}
 
-		var winHeight = ( window.innerHeight || document.documentElement.clientHeight );
+			const $tabItems = $invision.find('.js-invision-tab');
+			const $frame = $invision.find('.js-invision-frame');
+			const $loader = $invision.find('.js-invision-loader');
 
-		function setActive(){						
-			$sections.each(function(index, section){				
-				var sectionId = $(this).attr('id');
-				var rect = this.getBoundingClientRect();
-				var rectTop = Math.round(rect.top);
-				var rectBottom = Math.round(rect.bottom);
+			let os = 'ios';
 
-				if (rectTop <= 50 && rectBottom / 2 <= winHeight ){
-					$menuHrefs.removeClass('active');
-					$menuHrefs.filter('[href="#' + sectionId + '"]').addClass('active');
-				}
+			function loading(){
+				$tabItems.attr('disabled', true);
+				$frame.hide();	
+				$loader.show();
+			}
+
+			function loaded(){
+				$tabItems.attr('disabled', false);
+				$frame.show();	
+				$loader.hide();
+			}
+
+			function init(){
+				loading();	
+				const url = $tabItems.filter(':checked').val();
+				$frame.attr('src', url);
+			};
+
+			init();	
+
+			$tabItems.on('change', function(){
+				const $this = $(this);
+				const url = $this.val();
+				os = $this.data('os');
+							
+				loading();			
+
+				$frame.attr('src', url);				
+			});
+
+			$frame.on('load', function(){
+				
+				$frame.attr('data-os', os);
+
+				loaded();			
 			});
 		}
-		setActive();
 
-		$(window).on('scroll', function(e){
-			setActive();
-		});
+		function slider(){
+			const $gallery = $('#gallery');
+			const $galleryList = $gallery.find('.js-gallery-list');
+			const $galleryImages = $gallery.find('.js-gallery-image');
+			const $tabItems = $gallery.find('.js-gallery-tab');
 
-		$(window).on('resize', function(e){
-			winHeight = ( window.innerHeight || document.documentElement.clientHeight );			
-			setActive();
-		});
+			if (!isMobile){
+				$gallery.hide();
+				return;
+			}
+			$galleryList.bxSlider({
+				pager: false,
+				infiniteLoop: false,
+			});
 
-	}
+			$tabItems.on('change', function(){
+				const $this = $(this);
+				const os = $this.val();
+							
+				$galleryImages.each(function(){
+					const $this = $(this);
+					const oldSrc = $this.attr('src');
+					const newSrc = oldSrc.replace(/(android|ios)/, os);
+					$this.attr('src', newSrc);
+				});			
+			});
+		}
 
-	/*
-		submit form
-	*/
+		function init(){
 
-	function form(){		
-
-
-		$('form').each( function(){
-
-			const $form = $(this);
-			const $button = $form.find('button[type="submit"]');
-			const $success = $form.find('.order-form__success');
+			invision();
+			slider();
 			
-			$success.hide();
-
-			$form.on('submit', function(e){
-
-				e.preventDefault();
-
-				const form = e.target;
-
-
-				$button.text('Отправка данных...');
-				$button.attr('disabled', true);
-
-				$.ajax({
-					url: $form.attr('action'), 
-				    method: 'POST',
-				    data: $form.serialize(),
-				    dataType: 'json',
-				    success: function( response ) {
-				    	console.log(response);
-						$success.html('Спасибо! Ваша заявка была успешно отправлена!');
-						$success.removeClass('order-form__success--error');	
-				    },
-				    error: function(xhr, ajaxOptions, error){
-				    	console.log('Data could not be saved.' + error.message);
-						$success.addClass('order-form__success--error');
-						$success.html('Ошибка сохранения данных, попробуйте еще раз. Если ошибка повторится - свяжитесь с нами.');
-
-				    },
-				    complete: function(){					    	
-				    	$success.show();
-						$button.attr('disabled', false).text('Отправить заявку');			    	
-				    }
-				});				
-				
-				
-
-			});
-		});
-
-	}
-
-	function init(){
-
-		if (!isMobile){
-			header();
 		}
 
-		scrollMeTo();
-		menu();
-		form();
-	}
+		init(); 
 
-	return {
-		init 
-	}
+	})(window, document, jQuery, undefined);
 
-})(window, document, jQuery, undefined);
+};

@@ -140,6 +140,8 @@ gulp.task('html', function(callback){
 			basepath: '@file',
 			context: {
 				server: server,
+				marketIOS: 'https://itunes.apple.com/ru/app/dnevnik.ru/id1127180528',
+				marketAndroid: 'https://play.google.com/store/apps/details?id=ru.dnevnik.app',
 			},
 			indent: true
 		}))
