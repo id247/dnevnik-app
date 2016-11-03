@@ -20,8 +20,6 @@ export default function (){
 			return false;
 		})();
 
-		console.log('isMobile', isMobile);
-
 		function invision(){
 			const $invision = $('#invision');
 
@@ -79,15 +77,54 @@ export default function (){
 			const $galleryList = $gallery.find('.js-gallery-list');
 			const $galleryImages = $gallery.find('.js-gallery-image');
 			const $tabItems = $gallery.find('.js-gallery-tab');
+			const $loader = $gallery.find('.js-gallery-loader');
+
+			let isLoaded = false;
+			let loadedImagesCounter = 0;
+			let sliderId = false;
 
 			if (!isMobile){
 				$gallery.hide();
 				return;
 			}
-			$galleryList.bxSlider({
-				pager: false,
-				infiniteLoop: false,
-			});
+
+			function loading(){
+				$tabItems.attr('disabled', true);
+				$galleryList.css('visibility', 'hidden');	
+				$loader.show();
+			}
+
+			function loaded(){
+				$tabItems.attr('disabled', false);
+				$galleryList.css('visibility', 'visible');	
+				$loader.hide();
+			}
+
+			function init(){
+
+				loading();
+
+				$galleryImages.each(function(){
+					$(this).on('load', function(){
+						loadedImagesCounter++;
+
+						if (loadedImagesCounter === $galleryImages.length && !sliderId){
+							
+							loaded();
+
+							sliderId = $galleryList.bxSlider({
+								pager: false,
+								infiniteLoop: false,
+								adaptiveHeight: true,
+							});
+
+						}
+					});
+				});
+
+			}
+
+			init();
 
 			$tabItems.on('change', function(){
 				const $this = $(this);

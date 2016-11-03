@@ -15,20 +15,24 @@
 		<div class="home__mobiles home-mobiles">
 
 			<div class="home-mobiles__content">
+
+				<div class="home-mobiles__markets">
 				
-				<div class="home-mobiles__market home-mobiles__market--google-play">
+					<div class="home-mobiles__market home-mobiles__market--google-play">
+						
+						@@include("../common/market-link-google-play.html", {
+						})
+
+					</div><!-- /.home-mobiles__market -->
 					
-					@@include("../common/market-link-google-play.html", {
-					})
+					<div class="home-mobiles__market home-mobiles__market--app-store">
 
-				</div><!-- /.home-mobiles__market -->
-				
-				<div class="home-mobiles__market home-mobiles__market--app-store">
+						@@include("../common/market-link-app-store.html", {
+						})
 
-					@@include("../common/market-link-app-store.html", {
-					})
+					</div><!-- /.home-mobiles__market -->
 
-				</div><!-- /.home-mobiles__market -->
+				</div><!-- /.home-mobiles__markets -->
 
 				<div class="home-mobiles__image-placeholder">
 					
@@ -136,7 +140,7 @@
 				
 				<iframe src="about:blank" class="invision__frame js-invision-frame" width="400" height="800"></iframe>
 
-				<div class="invision__loader js-invision-loader">
+				<div class="invision__loader loader js-invision-loader">
 					
 					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" 
 					xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
@@ -215,6 +219,22 @@
 					</li> <!-- /.gallery__item -->
 				
 				</ul> <!-- /.gallery__list -->
+
+				<div class="gallery__loader loader js-gallery-loader">
+					
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" 
+					xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
+					width="50px" height="50px" 
+					viewBox="0 0 50 50" 
+					style="enableBackground: 'new 0 0 50 50'" 
+					xml:space="preserve"
+					>
+				  		<path fill="#ffffff" 
+				  			d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+						</path>
+					</svg>
+
+				</div><!-- /.invision__loader -->
 
 			</div><!-- /.gallery__box -->			
 

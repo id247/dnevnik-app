@@ -47,6 +47,9 @@
 		font-weight: 400;
 		font-size: 42px;
 		line-height: (50/36);
+		@media (max-width: 768px){
+			font-size: 35px;
+		}
 	}
 
 	&__text{
@@ -66,6 +69,12 @@
 	position: relative;
 	min-height: 550px;
 	max-height: 100vh;
+	
+	@media (max-width: 1000px){
+		min-height: 0;
+		max-height: initial;
+		padding-bottom: 0px;
+	}
 
 	&__title{
 		margin: 0 0 5px;
@@ -84,17 +93,24 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-
+		@media (max-width: 1000px){
+			position: static;
+		}
 	}
 }
 
 .home-mobiles{
 
+
 	&__content{
 		padding: 0 170px;
 		position: relative;
 		max-width: 812px;
-		margin: auto;		
+		margin: auto;	
+		
+		@media (max-width: 1000px){
+			padding: 0;
+		}	
 	}
 
 	&__image-placeholder{
@@ -102,17 +118,30 @@
 	}
 
 	&__image{
-		vertical-align: top;	
+		vertical-align: top;
+		max-width: 100%;
+		height: auto;	
 
-		@media (max-height: 700px){
+		@media (max-height: 700px) and (min-width: 1000px){
 			width: 300px;
 		}	
+	}
+
+	&__markets{
+		text-align: center;
 	}
 
 	&__market{
 		position: absolute;
 		top: 50%;
 		margin-top: -50px;
+		
+		@media (max-width: 1000px){
+			position: static;
+			margin: 0 20px 15px;
+			display: inline-block;
+			vertical-align: top;
+		}	
 
 		&--google-play{
 			left: 0;
@@ -153,6 +182,10 @@
 
 	&__qr-code{
 		text-align: center;
+
+		@media (max-width: 1024px){
+			display: none;
+		}
 	}
 }
 
@@ -233,6 +266,9 @@
 		text-align: center;
 		margin: 0 30px -30px;
 		counter-reset: steps;
+		@media (max-width: 768px){
+			margin: 0 0 -15px;
+		}
 	}
 	
 	&__item{
@@ -246,6 +282,7 @@
 		position: relative;
 		font-size: 18px;
 		line-height: (24/18);
+		min-height: 66px;
 		
 		&:before{
 			content: counter(steps);
@@ -263,6 +300,11 @@
 			font-family: $museo;
 			text-align: center;
 			line-height: 63px;
+		}
+
+		@media (max-width: 768px){
+			display: block;
+			margin: 0 auto 15px;
 		}
 	}
 }
@@ -336,14 +378,20 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		bottom: 0;
+		bottom: 0;		
 		margin: auto;
-		width: 50px;
-		height: 50px;
-		display: block;
-
-		animation: spin .6s infinite linear;
 	}
+}
+
+/* ==========================================================================
+ * loader
+ * ========================================================================== */
+
+.loader{
+	width: 50px;
+	height: 50px;
+	display: block;
+	animation: spin .6s infinite linear;
 }
 
 @keyframes spin {
@@ -364,6 +412,9 @@
 	&__box{
 		max-width: 360px;
 		margin: auto;
+
+		min-height: 500px;
+		max-height: 1000px;
 		
 		position: relative;
 		
@@ -379,6 +430,10 @@
 
 			&:hover{
 				opacity: .6;
+			}
+
+			@media (max-width: 620px){
+				display: none;
 			}
 		}
 
@@ -406,6 +461,15 @@
 		height: auto;
 	}
 
+	&__loader{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;		
+		margin: auto;
+	}
+
 }
 
 /* ==========================================================================
@@ -420,6 +484,9 @@
 		overflow: hidden;
 		border-radius: 15px;	
 		display: inline-block;	
+		@media (max-width: 768px){
+			border-radius: 35px;
+		}
 	}
 
 	&__list{
@@ -463,6 +530,11 @@
 		cursor: pointer;
 
 		transition: all .2s;
+		@media (max-width: 768px){
+			font-size: 20px;
+			padding: 15px 20px;
+			min-width: 120px;
+		}
 	}
 }
 
@@ -486,6 +558,10 @@
 		width: 48%;
 		position: relative;
 		text-align: center;
+
+		@media (max-width: 768px){
+			display: none;
+		}
 	}
 
 	&__table{
@@ -502,12 +578,21 @@
 	&__content{
 		float: right;
 		width: 48%;	
-		margin: 27px 0 0;	
+		margin: 27px 0 0;
+		@media (max-width: 768px){	
+			float: none;
+			width: auto;
+			margin: 0;
+		}
 	}
 
 	&__list{
 		text-align: center;
 		margin: 0 -1% -30px;
+		@media (max-width: 480px){
+			margin-left: 0;
+			margin-right: 0;
+		}
 	}
 	
 	&__item{
@@ -541,6 +626,12 @@
 		&--4:before{
 			@include sprite($advantages-4);
 		}
+
+		@media (max-width: 480px){	
+			width: 100%;
+			margin-left: 0;
+			margin-right: 0;
+		}
 	}
 
 	&__soon{
@@ -565,6 +656,11 @@
 
 		display: flex;
 		justify-content: center;
+
+		@media (max-width: 992px){	
+			display: block;
+			margin-bottom: -30px;
+		}
 	}
 
 	&__item{
@@ -575,6 +671,16 @@
 
 		&:first-child{
 			border: 0;
+		}
+
+		@media (max-width: 992px){	
+			display: block;
+			width: auto;
+			max-width: 70%;
+			margin: 0 auto 50px;
+		}
+		@media (max-width: 480px){	
+			max-width: 100%;
 		}
 	}
 }
@@ -587,8 +693,22 @@
 	&:last-child{
 		.rates-item__subtitle-text{
 			text-indent: -9999px;
+			@media (max-width: 992px){	
+				text-indent: 0;
+			}
 		}
 	}
+	
+	// &:nth-child(2){
+	// 	.rates-item__subtitle{
+	// 		z-index: 1;
+	// 		position: relative;
+	// 		margin: 0 -60px;
+	// 		@media (max-width: 992px){	
+	// 			margin: 0;
+	// 		}
+	// 	}
+	// }
 
 	&__header{
 		text-align: center;
@@ -605,6 +725,10 @@
 				@include sprite($best);	
 			}
 		}
+
+		@media (max-width: 992px){	
+			min-height: 0;
+		}	
 	}	
 
 	&__title{
@@ -632,6 +756,7 @@
 		background: #e7f6fe;
 		text-align: center;
 		padding: 10px 7px;
+		
 	}
 
 	&__subtitle-text{
