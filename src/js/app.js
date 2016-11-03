@@ -104,22 +104,11 @@ export default function (){
 
 				loading();
 
-				$galleryImages.each(function(){
-					$(this).on('load', function(){
-						loadedImagesCounter++;
-
-						if (loadedImagesCounter === $galleryImages.length && !sliderId){
-							
-							loaded();
-
-							sliderId = $galleryList.bxSlider({
-								pager: false,
-								infiniteLoop: false,
-								adaptiveHeight: true,
-							});
-
-						}
-					});
+				sliderId = $galleryList.bxSlider({
+					pager: false,
+					infiniteLoop: false,
+					adaptiveHeight: true,
+					onSliderLoad: loaded,
 				});
 
 			}

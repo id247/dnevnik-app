@@ -364,12 +364,12 @@
 
 		&[data-os="ios"]{
 			width: 400px;
-			height: 800px;
+			height: 866px;
 		}
 
 		&[data-os="android"]{
-			width: 442px;
-			height: 820px;
+			width: 428px;
+			height: 866px;
 		}
 	}
 
@@ -414,7 +414,6 @@
 		margin: auto;
 
 		min-height: 500px;
-		max-height: 1000px;
 		
 		position: relative;
 		
@@ -453,7 +452,7 @@
 	}
 
 	&__item{
-		
+		float: left;
 	}
 
 	&__image{
